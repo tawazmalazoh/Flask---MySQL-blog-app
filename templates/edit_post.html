@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Post{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Edit Post</h2>
+    <form action="{{ url_for('edit_post', id=post.id) }}" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" class="form-control" id="id" name="id" value="{{ post.id }}">
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Title:</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ post.title }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="body" class="form-label">Body:</label>
+            <textarea class="form-control" id="body" name="body" rows="7" required>{{ post.body }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label">Category:</label>
+            <select class="form-select" id="category" name="category" required>
+                {% for category in categories %}
+                <option value="{{ category.id }}" {% if category.id == post.category_id %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        {# <div class="mb-3">
+            <label for="file" class="form-label">Post Image:</label>
+            <input type="file" class="form-control" id="file" name="file">
+            {% if post.image %}
+                <img src="{{ url_for('static', filename='assets/images/' ~ post.image) }}" class="img-fluid mt-2" alt="Current Image">
+            {% endif %}
+        </div> #}
+        
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+{% endblock %}

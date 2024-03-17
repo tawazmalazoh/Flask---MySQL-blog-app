@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Add New Post{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container single-col-max-width">
+
+    <form method="GET" action="/" class="mb-4">
+        <div class="row align-items-end">
+            <div class="col-md-5">
+                <label for="filterCategory" class="form-label">Filter by Category</label>
+                <select class="form-select" id="filterCategory" name="category">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}" {% if request.args.get('category') == category.id|string %}selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-auto">
+                <button type="submit" class="btn btn-primary">Apply Filter</button>
+            </div>
+        </div>
+    </form>
+
+    {% for post in posts %}
+    <div class="item mb-5">
+        <div class="row g-3 g-xl-0">
+            <div class="col-2 col-xl-3">
+                {% if post.image %}
+                    <img class="img-fluid post-thumb" src="{{ url_for('static', filename='assets/images/' ~ post.image) }}" alt="Post image">
+                {% else %}
+                    <img class="img-fluid post-thumb" src="{{ url_for('static', filename='assets/images/default.jpg') }}" alt="Default post image">
+                {% endif %}
+            </div>
+            <div class="col">
+                <h3 class="title mb-1"><a class="text-link" href="/post/{{ post.id }}">{{ post.title }}</a></h3>
+                <div class="meta mb-1">Author: {{ post.added_by }} :   Posted Date : {{ post.created_at }}</div> 
+                <div class="intro">{{ post.body | truncate(150, true, '...') }}</div>
+                <a class="text-link" href="/post/{{ post.id }}">Read more &rarr;</a>
+              
+                <div class="edit-delete-buttons mt-2">
+                    <a href="{{ url_for('edit_post', id=post.id) }}" class="btn btn-secondary">Edit</a>
+                    <a href="{{ url_for('delete_post', id=post.id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?')">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="item mb-5">
+        <p>No posts found.</p>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+{% endblock %}
