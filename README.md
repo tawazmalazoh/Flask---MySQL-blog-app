@@ -3,4 +3,4 @@
 
 
  >>>>>>>>>> Analytics Dashboards
-<img src="images/images/supply chain .png "  width="800" height="450">
+<img src="static/assets/images/1.png "  width="800" height="450">
