@@ -18,5 +18,4 @@
 >>>>>>>>>> Analytics Dashboards
 <img src="static/assets/images/5.png "  width="800" height="450">
 
->>>>>>>>>> Analytics Dashboards
-<img src="static/assets/images/6.png "  width="800" height="450">
+
